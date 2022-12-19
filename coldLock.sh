@@ -148,7 +148,7 @@ case $secilenIslem in
 	   			echo "Sistem kilitleniyor..."
 	   			isim="$USER"
 	   			echo $isim>coldLock.tmp
-	   			sudo cp coldLock.tmp /etc/coldLock
+	   			sudo mv coldLock.tmp /etc/coldLock
 	   			sudo rsync -a /home/${isim} /root
 	   			sleep 10
 				grep -v "exit 0" /etc/rc.local > yeni.tmp
@@ -179,7 +179,7 @@ case $secilenIslem in
 				read isim
 				if [[ -d /home/${isim} ]]; then
 					echo $isim>coldLock.tmp
-	   				sudo cp coldLock.tmp /etc/coldLock
+	   				sudo mv coldLock.tmp /etc/coldLock
 	   				echo "Sistem kilitleniyor..."
 	   				sudo rsync -a /home/${isim} /root
 	   				sleep 10
@@ -211,7 +211,7 @@ case $secilenIslem in
 	   			echo
 	   		else
 	   			echo "">coldLock.tmp
-	   			sudo cp coldLock.tmp /etc/coldLock
+	   			sudo mv coldLock.tmp /etc/coldLock
 	   			echo "Sistem kilitleniyor..."
 	   			sudo rsync -a /home/ /root
 	   			sleep 10
