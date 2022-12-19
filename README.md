@@ -15,5 +15,8 @@ Güncelleme Notları;
 0.0.2 => Scripte belirtilen kullanıcı ve tüm kullanıcıları sistemlerini kilitleme özellikleri ve parola oluşturup parolayı kaldırma özellikleri eklendi.
 0.0.3 => Scripte oluşturulan coldLock klasörü ile coldLock.tmp dosyalarının taşınması komutları eklendi.
 
+Bağımlılıklar;  
+Scriptin hatasız çalışması için rsync paketinin sisteminizde yüklü olması gerekmektedir.
+
 
 
