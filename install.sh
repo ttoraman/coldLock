@@ -4,13 +4,12 @@ if [[ -d /etc/coldLock ]]; then
 	sudo rm -r /etc/coldLock
 else
 	mkdir coldLock
-	sudo cp -r coldLock /etc
+	sudo mv coldLock /etc
 fi
 echo \#\!\/bin\/sh \-e > rc-raw.local
 echo "exit 0" >> rc-raw.local
 sudo cp rc-raw.local /etc/rc.local
-sudo cp rc-raw.local /etc/coldLock
-rm rc-raw.local
+sudo mv rc-raw.local /etc/coldLock/
 sudo chmod +x /etc/rc.local
 sudo systemctl is-active rc-local
 if [[ "$?" == "3" ]]; then
