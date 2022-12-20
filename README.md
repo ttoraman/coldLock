@@ -3,7 +3,7 @@ Deepfreeze application for linux systems.(Linux sistemler için deepfreeze uygul
 # ******************************************************
 #  coldLock - Deepfreeze application for linux systems.
 # ******************************************************
-# Version       : 0.0.3 tr
+# Version       : 0.0.4 tr
 # Created by    : Tekin Toraman
 # E-Mail        : ttoraman@gmail.com
 # Created date  : December, 16th 2022
@@ -14,6 +14,7 @@ Program 2 dosyadan oluşmaktadır. Dosyaları bir klasöre çıkardıktan sonra 
 Güncelleme Notları; 
 0.0.2 => Scripte belirtilen kullanıcı ve tüm kullanıcıları sistemlerini kilitleme özellikleri ve parola oluşturup parolayı kaldırma özellikleri eklendi.
 0.0.3 => Scripte oluşturulan coldLock klasörü ile coldLock.tmp dosyalarının taşınması komutları eklendi.
+0.0.4 => .coldLock-pwd dosyası oluşturma hatası düzeltildi.
 
 Bağımlılıklar;  
 Scriptin hatasız çalışması için rsync paketinin sisteminizde yüklü olması gerekmektedir.
