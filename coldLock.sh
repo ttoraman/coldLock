@@ -3,7 +3,7 @@
 #***********************************************************
 # coldLock - Deepfreeze application for linux systems.
 #***********************************************************
-# Version        :0.0.2 tr
+# Version        :0.0.4 tr
 # Created by     :Tekin Toraman
 # E-Mail		 :ttoraman@gmail.com
 # Created date   :16.12.2022
