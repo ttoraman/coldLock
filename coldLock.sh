@@ -295,7 +295,7 @@ case $secilenIslem in
 			if [[ $parola != "" ]];then
 
 				sifre=$(echo -n ${parola}| sha256sum | cut -c 1-50)
-				echo "${sifre}">.coldLock-pwd
+				sudo echo "${sifre}">.coldLock-pwd
 				sudo cp .coldLock-pwd /etc/coldLock
 				rm .coldLock-pwd
 				echo "Parola başarıyla değiştirildi..."
