@@ -128,7 +128,7 @@ while [ "$secim" != "True" ];
 	elif [[ "$coldSecim" == "4" ]]; then
 	secim=True
 	secilenIslem=4
-	echo -e "${mor}kiliti kaldırmayı seçtiniz${renkReset}"
+	echo -e "${mor}Kilidi kaldırmayı seçtiniz${renkReset}"
 	elif [[ "$coldSecim" == "5" ]]; then
 	echo "******Sistem Durumu*******"
 	secilenIslem=5
