@@ -3,11 +3,22 @@
 #***********************************************************
 # coldLock - Deepfreeze application for linux systems.
 #***********************************************************
-# Version        :0.0.4 tr
+# Version        :0.0.2 tr
 # Created by     :Tekin Toraman
 # E-Mail		 :ttoraman@gmail.com
 # Created date   :16.12.2022
 #***********************************************************
+
+
+#Renk kodları
+kirmizi='\033[0;31m'          # Red
+yesil='\033[0;32m'        # Green
+sari='\033[0;33m'       # Yellow
+mavi='\033[0;34m'         # Blue
+mor='\033[0;35m'       # Purple
+beyaz='\033[0;37m'        # White
+renkReset='\033[0m'
+
 # Eğer .coldLock-pwd dosyası mevcutsa ilk bu kod bloğu çalışarak parola girmeniz istenecektir. 
 if [[ -e /etc/coldLock/.coldLock-pwd ]]; then
 	kayitliParola=$(</etc/coldLock/.coldLock-pwd)
@@ -16,14 +27,14 @@ if [[ -e /etc/coldLock/.coldLock-pwd ]]; then
 	sifreCevir=$(echo -n ${parola} | sha256sum | cut -c 1-50)
 	if [[ $sifreCevir != $kayitliParola ]]; then
 		echo
-		echo "Hata: Hatalı parola girdiniz!"
+		echo -e "${Red}Hata: Hatalı parola girdiniz!${renkReset}"
 		echo
 		exit 0
 	fi
 
 fi
 
-echo
+echo -e "${sari}"
 echo "********************Menu********************"
 echo "1. Bu kullanıcı için sistemi kilitle"
 echo "2. Belirtilen kullanıcı için sistemi kilitle"
@@ -32,7 +43,7 @@ echo "4. Sistem kilidini kaldır"
 echo "5. Sistem durumunu görüntüle"
 echo "6. Parola ayarla"
 echo "7. Çıkış"
-echo
+echo -e "${renkReset}"
 
 secim=False
 durumDosyasi='/etc/coldLock/rc-raw.local'
@@ -65,7 +76,7 @@ if [[ -e $dosyaAdi ]]; then
 		echo $line
 	done <$dosyaAdi
 else 
-	echo "Hata: $dosyaAdi dosyası bulunamadı..."
+	echo -e "${kirmizi}Hata: $dosyaAdi dosyası bulunamadı...${renkReset}"
 fi
 }
 
@@ -75,14 +86,14 @@ function dosyaDogrula(){
 		sonuc="True"
 		echo $sonuc
 	elif [ $dosyaVar -eq 0 -a $dosyaVar2 -eq 1 ]; then
-		sonuc="Hata: ${durumDosyasi} dosyası eksik."
-		echo $sonuc
+		sonuc="${kirmizi}Hata: ${durumDosyasi} dosyası eksik.${renkReset}"
+		echo -e $sonuc
 	elif [ $dosyaVar -eq 1 -a $dosyaVar2 -eq 0 ]; then
-		sonuc="Hata: ${durumDosyasi2} dosyası eksik."
-		echo $sonuc	
+		sonuc="${kirmizi}Hata: ${durumDosyasi2} dosyası eksik.${renkReset}"
+		echo -e $sonuc	
 	else
-		sonuc="Hata: ${durumDosyasi} ve ${durumDosyasi2} dosyaları eksik."
-		echo $sonuc
+		sonuc="${kirmizi}Hata: ${durumDosyasi} ve ${durumDosyasi2} dosyaları eksik.${renkReset}"
+		echo -e $sonuc
 	fi
 	}
 
@@ -105,19 +116,19 @@ while [ "$secim" != "True" ];
 	if [[ "$coldSecim" == "1" ]]; then
 	secim=True
 	secilenIslem=1
-	echo "Bu kullanıcı için sistemi kilitleyi seçtiniz!"
+	echo -e "${mor}Bu kullanıcı için sistemi kilitleyi seçtiniz!${renkReset}"
 	elif [[ "$coldSecim" == "2" ]]; then
 	secim=True
 	secilenIslem=2
-	echo "Belirtilen kullanıcı için sistemi kilitleyi seçtiniz!"
+	echo -e "${mor}Belirtilen kullanıcı için sistemi kilitleyi seçtiniz!${renkReset}"
 	elif [[ "$coldSecim" == "3" ]]; then
 	secim=True
 	secilenIslem=3
-	echo "Tüm kullanıcılar için sistemi kilitleyi seçtiniz!"
+	echo -e "${mor}Tüm kullanıcılar için sistemi kilitleyi seçtiniz!${renkReset}"
 	elif [[ "$coldSecim" == "4" ]]; then
 	secim=True
 	secilenIslem=4
-	echo "kiliti kaldırmayı seçtiniz"
+	echo -e "${mor}kiliti kaldırmayı seçtiniz${renkReset}"
 	elif [[ "$coldSecim" == "5" ]]; then
 	echo "******Sistem Durumu*******"
 	secilenIslem=5
@@ -128,10 +139,10 @@ while [ "$secim" != "True" ];
 	elif [[ "$coldSecim" == "7" ]]; then
 	secilenIslem=
 	secim=True
-	echo "Çıkış yaptınız..."
+	echo -e "${mor}Çıkış yaptınız...${renkReset}"
 	exit
 	else
-	echo "Yanlış seçim yaptınız.Tekrar deneyiniz..."
+	echo -e "${kirmizi}Yanlış seçim yaptınız.Tekrar deneyiniz...${renkReset}"
 	secim=false
 	fi
 done
@@ -142,7 +153,7 @@ case $secilenIslem in
 
 			if [[ "$(dosyaFark)" != "" ]]; then
 	   
-	   			echo "Hata: Bu sistem zaten kilitli."
+	   			echo -e "${kirmizi}Hata: Bu sistem zaten kilitli.${renkReset}"
 	   			echo
 	   		else
 	   			echo "Sistem kilitleniyor..."
@@ -160,7 +171,7 @@ case $secilenIslem in
 				sudo cp yeni.tmp /etc/rc.local
 				sudo chmod +x /etc/rc.local
 				rm yeni.tmp
-				echo "Sistem başarıyla kilitlendi."
+				echo -e "${yesil}Sistem başarıyla kilitlendi.${renkReset}"
 			fi
 		else
 			dosyaDogrula
@@ -172,7 +183,7 @@ case $secilenIslem in
 
 			if [[ "$(dosyaFark)" != "" ]]; then
 	   
-	   			echo "Hata: Bu sistem zaten kilitli."
+	   			echo -e "${kirmizi}Hata: Bu sistem zaten kilitli.${renkReset}"
 	   			echo
 	   		else
 	   			echo -n "Kilitleme yapılacak kullanıcı adını yazınız:"
@@ -192,9 +203,9 @@ case $secilenIslem in
 					sudo cp yeni.tmp /etc/rc.local
 					sudo chmod +x /etc/rc.local
 					rm yeni.tmp
-					echo "Sistem başarıyla kilitlendi."
+					echo -e "${yesil}Sistem başarıyla kilitlendi.${renkReset}"
 				else
-					echo "Hata: Böyle bir kullanıcı yok!"
+					echo -e "${kirmizi}Hata: Böyle bir kullanıcı yok!${renkReset}"
 					exit 0
 				fi
 			fi
@@ -207,7 +218,7 @@ case $secilenIslem in
 
 			if [[ "$(dosyaFark)" != "" ]]; then
 	   
-	   			echo "Hata: Bu sistem zaten kilitli."
+	   			echo -e "${kirmizi}Hata: Bu sistem zaten kilitli.${renkReset}"
 	   			echo
 	   		else
 	   			echo "">coldLock.tmp
@@ -222,7 +233,7 @@ case $secilenIslem in
 				sudo cp yeni.tmp /etc/rc.local
 				sudo chmod +x /etc/rc.local
 				rm yeni.tmp
-				echo "Sistem başarıyla kilitlendi."
+				echo -e "${yesil}Sistem başarıyla kilitlendi.${renkReset}"
 			fi
 		else
 			dosyaDogrula
@@ -251,10 +262,10 @@ case $secilenIslem in
 				sudo cp /etc/coldLock/rc-raw.local /etc/rc.local
 				sudo chmod +x /etc/rc.local
 				
-				echo "Sistem kilidi başarıyla kaldırıldı..."
+				echo -e "${yesil}Sistem kilidi başarıyla kaldırıldı...${renkReset}"
 			
 			else
-				echo "Hata: Sistem zaten kilitli değil."
+				echo -e "${kirmizi}Hata: Sistem zaten kilitli değil.${renkReset}"
 			fi
 		else
 
@@ -266,11 +277,11 @@ case $secilenIslem in
 
 			if [[ $(dosyaFark) != "" ]]; then
 
-				echo "Sistem şu an kilitli durumda..."
+				echo -e "${yesil}Sistem şu an kilitli durumda...${renkReset}"
 				
 				
 			else
-				echo "Sistem şu anda kilitli değil."
+				echo -e "${kirmizi}Sistem şu anda kilitli değil.${renkReset}"
 			fi
 		else
 
@@ -278,7 +289,7 @@ case $secilenIslem in
 		fi
 		;;
 	
-	6) echo "**********Parola ayarla**********"
+	6) echo -e "${sari}**********Parola ayarla**********"
 		echo
 		echo "Mevcut parolanızı kaldırmak için iki defa Enter tuşuna basınız."
 		echo	
@@ -287,7 +298,7 @@ case $secilenIslem in
 			echo
 			echo -n "Parolanızı tekrar yazınız:"
 			read -s rparola
-			echo
+			echo -e "${renkReset}"
 
 		if [[ $parola == $rparola ]];then
 			
@@ -295,10 +306,10 @@ case $secilenIslem in
 			if [[ $parola != "" ]];then
 
 				sifre=$(echo -n ${parola}| sha256sum | cut -c 1-50)
-				sudo echo "${sifre}">.coldLock-pwd
+				echo "${sifre}">.coldLock-pwd
 				sudo cp .coldLock-pwd /etc/coldLock
 				rm .coldLock-pwd
-				echo "Parola başarıyla değiştirildi..."
+				echo -e "${yesil}Parola başarıyla oluşturuldu...${renkReset}"
 				echo
 				exit 0
 			else
@@ -306,23 +317,23 @@ case $secilenIslem in
 				if [[ -e /etc/coldLock/.coldLock-pwd ]];then
 					sudo rm /etc/coldLock/.coldLock-pwd
 					echo
-					echo "Parola başarıyla kaldırıldı..."
+					echo -e "${yesil}Parola başarıyla kaldırıldı...${renkReset}"
 					exit 0
 									
 
 				fi
 			fi
 		else 
-			echo "Hata: Parolalar uyuşmadı!"
+			echo -e "${kirmizi}Hata: Parolalar uyuşmadı!${renkReset}"
 			exit 0
 		fi
 		   ;;
 	   
-	7) echo "İşlem sonlandırıldı..."
+	7) echo -e "${mor}İşlem sonlandırıldı...${renkReset}"
 		   exit 0
 		   ;;
 
-	*) echo "hatalı bir durum oldu..."
+	*) echo -e "${kirmizi}hatalı bir durum oldu...${renkReset}"
 		exit 1
 esac
 
