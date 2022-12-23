@@ -3,9 +3,9 @@
 #***********************************************************
 # coldLock - Deepfreeze application for linux systems.
 #***********************************************************
-# Version        :0.0.2 tr
+# Version        :0.0.5 tr
 # Created by     :Tekin Toraman
-# E-Mail		 :ttoraman@gmail.com
+# E-Mail	 :ttoraman@gmail.com
 # Created date   :16.12.2022
 #***********************************************************
 
@@ -306,7 +306,7 @@ case $secilenIslem in
 			if [[ $parola != "" ]];then
 
 				sifre=$(echo -n ${parola}| sha256sum | cut -c 1-50)
-				echo "${sifre}">.coldLock-pwd
+				sudo echo "${sifre}">.coldLock-pwd
 				sudo cp .coldLock-pwd /etc/coldLock
 				rm .coldLock-pwd
 				echo -e "${yesil}Parola başarıyla oluşturuldu...${renkReset}"
