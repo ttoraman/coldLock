@@ -27,7 +27,7 @@ if [[ -e /etc/coldLock/.coldLock-pwd ]]; then
 	sifreCevir=$(echo -n ${parola} | sha256sum | cut -c 1-50)
 	if [[ $sifreCevir != $kayitliParola ]]; then
 		echo
-		echo -e "${Red}Hata: Hatalı parola girdiniz!${renkReset}"
+		echo -e "${kirmizi}Hata: Hatalı parola girdiniz!${renkReset}"
 		echo
 		exit 0
 	fi
